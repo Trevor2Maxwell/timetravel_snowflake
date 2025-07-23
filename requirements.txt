@@ -1,0 +1,4 @@
+pandas>=1.3.0
+snowflake-connector-python>=2.7.0
+pytest>=6.0.0
+pytest-cov>=2.12.0
