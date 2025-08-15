@@ -29,11 +29,10 @@ select
     , min(API_CREATE_DATE)::date API_MIN_CREATE_DATE
     , min(CREATED_AT)::date DB_MIN_CREATE_DATE
     , max(API_LAST_CHANGE_DATE)::date API_MAX_UPDATE_DATE
-from PIMS_Production.BRONZE.TRANSACTIONS
+from TRANSACTIONS
 where 
     PRACTICE_ID = {{practice_id}}
     AND IS_PAYMENT = 'false'
-    and "SOURCE" NOT ilike 'VetSource'
     AND TRANSACTION_DATE <= current_date
     AND TRANSACTION_DATE >= DATEADD(YEAR, -4, CURRENT_DATE)
     AND API_REMOVED_DATE IS NULL
@@ -75,7 +74,7 @@ select
     DATE_TRUNC('MONTH', TRANSACTION_DATE) AS PERIOD
     , sum(AMOUNT::float/100)::int as SUM
     , count(*) COUNT
-from PIMS_Production.BRONZE.TRANSACTIONS
+from TRANSACTIONS
 where 
     PRACTICE_ID = :practice_id
     AND IS_PAYMENT = :is_payment
